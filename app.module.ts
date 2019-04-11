@@ -11,14 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 
 //Firebase
-var config = {
-    apiKey: "AIzaSyC0g8CbODG4EBwW6-JNiobgUsLGDtiRdzc",
-    authDomain: "xoxo-978ea.firebaseapp.com",
-    databaseURL: "https://xoxo-978ea.firebaseio.com",
-    projectId: "xoxo-978ea",
-    storageBucket: "xoxo-978ea.appspot.com",
-    messagingSenderId: "710270535071"
-  };
+//configure your firebase project
 
   import { AngularFireModule } from "@angular/fire";
   import { AngularFireAuthModule } from "@angular/fire/auth";
