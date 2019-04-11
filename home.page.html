@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Fire Forum
+    </ion-title>
+    <ion-buttons slot="secondary">
+      <ion-button color="primary" icon-only (click)="gotoProfile()">
+        <ion-icon name="contact"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngFor="let post of postRef | async" class="posts">
+    <ion-item lines="none">
+      <ion-avatar slot="start">
+        <ion-img style="background:#bbb" src="{{post.Photo}}"></ion-img>
+      </ion-avatar>
+      <ion-label>
+        <h3>{{post.Name}}</h3>
+        <ion-note *ngIf="post.Timestamp">{{timesAgo(post.Timestamp)}}</ion-note>
+      </ion-label>
+      <ion-icon (click)="options(post.id,post.Post)" *ngIf="post.UID == userid" name="more" slot="end"></ion-icon>
+    </ion-item>
+    <ion-card-content>
+      <div *ngIf="post.Post.length>500">
+          <span [innerHTML]="post.Post.substring(0,499)"></span>
+          <span id="dots" style="color:#0ec254" (click)="readMore(post.id)" id="{{post.id+'readMore'}}">...read more</span>
+          <span style="display:none" id="{{post.id+'extra'}}" [innerHTML]="post.Post.substring(499)"></span>
+      </div>
+      <div *ngIf="post.Post.length<500">
+        <span [innerHTML]="post.Post"></span>
+        
+    </div>
+      <ion-note id="{{'likesCount'+post.id}}"></ion-note>
+    </ion-card-content>
+    <ion-item lines="full">
+      <ion-button (click)="heart(post.id)" icons-only fill="clear" shape="round">
+        <ion-icon id="{{post.id+'like'}}" name="ios-heart-empty"></ion-icon>
+      </ion-button>
+      <ion-button (click)="comment(post.id)" icons-only fill="clear" color="danger" shape="round">
+        <ion-icon name="ios-text"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </div>
+
+
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="gotoCreate()">
+      <ion-icon name="create"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

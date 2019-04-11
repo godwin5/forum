@@ -1,0 +1,21 @@
+<div id="editLoader">
+  <ion-progress-bar type="indeterminate"></ion-progress-bar>
+  </div>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Create Post</ion-title>
+    <ion-buttons slot="secondary"> 
+      <ion-button icon-only [disabled]="postBtn" (click)="post()" >
+        <ion-icon name="checkmark"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-item>
+    <ion-label position="stacked">Write Something</ion-label>
+    <ion-textarea rows="5" #textarea [(ngModel)]="postInput" (keyup)="check()"></ion-textarea>
+  </ion-item>
+
+</ion-content>

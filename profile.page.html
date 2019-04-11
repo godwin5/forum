@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div padding text-center>
+    <img src="{{photo}}" style="background: #bbb;width:150px;height:150px;border-radius:100%;"> <br>
+    <h4>{{name}}</h4>
+    <ion-note style="font-weight:bold">{{bio}}</ion-note> <br>
+
+    <ion-note style="font-weight:bold">{{postCount+' Posts'}}</ion-note>
+    <hr style="  border-top: 1px solid #bbb;">
+  </div>
+  <div *ngFor="let post of postRef | async" class="posts">
+    <div *ngIf="post.UID == userid">
+      <ion-item lines="none">
+        <ion-avatar slot="start">
+          <ion-img style="background:#bbb" src="{{post.Photo}}"></ion-img>
+        </ion-avatar>
+        <ion-label>
+          <h3>{{post.Name}}</h3>
+          <ion-note *ngIf="post.Timestamp">{{timesAgo(post.Timestamp)}}</ion-note>
+        </ion-label>
+        <ion-icon (click)="options(post.id,post.Post)" *ngIf="post.UID == userid" name="more" slot="end"></ion-icon>
+      </ion-item>
+      <ion-card-content>
+        <div *ngIf="post.Post.length>500">
+          <span [innerHTML]="post.Post.substring(0,499)"></span>
+          <span id="dots" style="color:#0ec254" (click)="readMore(post.id)" id="{{post.id+'PreadMore'}}">...read
+            more</span>
+          <span style="display:none" id="{{post.id+'Pextra'}}" [innerHTML]="post.Post.substring(499)"></span>
+        </div>
+        <ion-note id="{{'plikesCount'+post.id}}"></ion-note>
+      </ion-card-content>
+      <ion-item lines="full">
+        <ion-button (click)="heart(post.id)" icons-only fill="clear" shape="round">
+          <ion-icon id="{{post.id+'plike'}}" name="ios-heart-empty"></ion-icon>
+        </ion-button>
+        <ion-button (click)="comment(post.id)" icons-only fill="clear" color="danger" shape="round">
+          <ion-icon name="ios-text"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </div>
+  </div>
+</ion-content>
